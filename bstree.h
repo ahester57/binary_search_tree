@@ -1,10 +1,11 @@
 #ifndef BSTREE_H_
 #define BSTREE_H_
+#include "treestring.h"
 
 typedef struct node Node;
 
 struct node {
-    int value;
+    TreeString value[64];
     Node* left;
     Node* right;
 };

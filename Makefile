@@ -3,7 +3,7 @@ CC=gcc
 CFLAGS=-Wall -g
 #LDLIBS= -pthread
 # or perhaps SOURCES= $(wildcard *.c)
-DEPS = bstree.h readfile.h
+DEPS = bstree.h readfile.h treestring.h
 OBJECTS = main.o bstree.o readfile.o
 
 .PHONY: all clean

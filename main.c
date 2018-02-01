@@ -20,7 +20,11 @@ main (int argc, char* argv[])
     }
 
     char** wordlist = getfilestring(fp);
-    fprintf(stdout, "%s\n", wordlist);
+    int n = getnumwords();
+
+    int i;
+    for (i = 0; i < n; i++)
+        fprintf(stdout, "%s\n", wordlist[i]);
     // Do some tests
     testtree();
     fclose(fp);
