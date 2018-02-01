@@ -19,7 +19,7 @@ main (int argc, char* argv[])
         return 1;
     }
 
-    char* wordlist = getfilestring(fp);
+    char** wordlist = getfilestring(fp);
     fprintf(stdout, "%s\n", wordlist);
     // Do some tests
     testtree();
