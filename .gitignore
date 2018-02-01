@@ -1,0 +1,5 @@
+*.o
+*.out
+*.code-workspace
+p0
+.vscode/*
