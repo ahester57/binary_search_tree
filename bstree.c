@@ -4,31 +4,62 @@
 #include "bstree.h"
 
 Node*
-insert(Node* root, int val)
+insert(Node* root, char* word)
 {
+    int len = strlen(word);
     if (root == NULL) {
-        root = malloc(sizeof(Node));
-        root->value = val;
+        root = (Node*) malloc(sizeof(Node));
+        root->words = (char**) malloc(64*sizeof(char*));
+        root->count = 1;
+        root->words[root->count-1] = (char*) malloc(64*sizeof(char));
+        strcpy(root->words[root->count-1], word);
+        root->length = len;
         root->left = NULL;
         root->right = NULL;
-    } else if (val < root->value) {
-        root->left = insert(root->left, val);
+    } else if (len == root->length) {
+        // add this word to this node   
+    } else if (len < root->length) {
+        root->left = insert(root->left, word);
     } else {
-        root->right = insert(root->right, val);
+        root->right = insert(root->right, word);
     }
     return root;
 }
 
 Node*
-search(Node* root, int val)
+search(Node* root, char* word)
 {
-    if (root == NULL || root->value == val)
+    int len = strlen(word);
+    if (root == NULL || root->length == len) {
         return root;
+    }
 
-    if (root->value < val)
-        return search(root->right, val);
+    if (root->length < len) {
+        return search(root->right, word);
+    }
 
-    return search(root->left, val);
+    return search(root->left, word);
+}
+
+Node*
+delete(Node* root, int len)
+{
+    // @TODO
+    return root;
+}
+
+// Check if word in node, return:
+// 1 - yes
+// 0 - no
+int
+isinnode(Node* node, char* word)
+{
+    int i;
+    for (i = 0; i < node->count; i++) {
+        if (!strcmp(node->words[i], word)) 
+            return 1;
+    } 
+    return 0;
 }
 
 void
@@ -37,8 +68,9 @@ inorder(Node* root)
     if (root == NULL)
         return;
     inorder(root->left);
-    printf("%d\n", root->value);
+    printf("%d\n", root->length);
     inorder(root->right);
+    printnode(root);
 }
 
 void
@@ -46,9 +78,10 @@ preorder(Node* root)
 {
     if (root == NULL)
         return;
-    printf("%d\n", root->value);
+    printf("%d\n", root->length);
     preorder(root->left);
     preorder(root->right);
+    printnode(root);
 }
 
 void
@@ -58,19 +91,15 @@ postorder(Node* root)
         return;
     postorder(root->left);
     postorder(root->right);
-    printf("%d\n", root->value);
+    printf("%d\n", root->length);
+    printnode(root);
 }
 
 void
-testtree()
+printnode(Node* node)
 {
-    Node* root = NULL;
-    root = insert(root, 50);
-    insert(root, 30);
-    insert(root, 20);
-    insert(root, 40);
-    insert(root, 70);
-    insert(root, 60);
-    insert(root, 80);
-    inorder(root);
+    int i;
+    for (i = 0; i < node->count; i++) {
+        printf("%s\n", node->words[i]);
+    }
 }

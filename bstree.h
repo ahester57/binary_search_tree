@@ -1,20 +1,23 @@
 #ifndef BSTREE_H_
 #define BSTREE_H_
-#include "treestring.h"
 
 typedef struct node Node;
 
 struct node {
-    TreeString value[64];
+    char** words;
+    int length;
+    int count;
     Node* left;
     Node* right;
 };
 
-Node* insert(Node* root, int val);
-Node* search(Node* root, int val);
+Node* insert(Node* root, char* word);
+Node* search(Node* root, char* word);
+Node* delete(Node* root, int len);
+int isinwordlist(char** list, char* word);
 void inorder(Node* root);
 void preorder(Node* root);
 void postorder(Node* root);
-void testtree();
+void printnode(Node* node);
 
 #endif

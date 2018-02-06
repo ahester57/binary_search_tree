@@ -22,11 +22,18 @@ main (int argc, char* argv[])
     char** wordlist = getfilestring(fp);
     int n = getnumwords();
 
+    Node* root = NULL;
+    root = insert(root, wordlist[0]);
     int i;
-    for (i = 0; i < n; i++)
-        fprintf(stdout, "%s\n", wordlist[i]);
-    // Do some tests
-    testtree();
+    for (i = 1; i < n; i++)
+        insert(root, wordlist[i]);
+        //fprintf(stdout, "%s\n", wordlist[i]);
+
+
+    inorder(root);
+
+    // out-file
+
     fclose(fp);
     return 0;
 }
