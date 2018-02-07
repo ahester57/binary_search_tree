@@ -1,8 +1,27 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "binarytree.h"
 #include "treehelper.h"
-#include "bstree.h"
+
+Node*
+initializenode(Node* root, int len)
+{
+    root = (Node*) malloc(sizeof(Node));
+    root->words = (char**) malloc(64*sizeof(char*));
+    root->length = len;
+    root->left = NULL;
+    root->right = NULL;
+    return root;
+}
+
+void
+addwordtonode(Node* root, char* word)
+{
+    root->count++;
+    root->words[root->count-1] = (char*) malloc(64*sizeof(char));
+    strcpy(root->words[root->count-1], word);
+}
 
 // 1 - yes
 // 0 - no
@@ -23,7 +42,6 @@ inorder(Node* root)
     if (root == NULL)
         return;
     inorder(root->left);
-    printf("%d\n", root->length);
     printnode(root);
     inorder(root->right);
 }
@@ -33,7 +51,6 @@ preorder(Node* root)
 {
     if (root == NULL)
         return;
-    printf("%d\n", root->length);
     printnode(root);
     preorder(root->left);
     preorder(root->right);
@@ -46,13 +63,13 @@ postorder(Node* root)
         return;
     postorder(root->left);
     postorder(root->right);
-    printf("%d\n", root->length);
     printnode(root);
 }
 
 void
 printnode(Node* node)
 {
+    printf("%d\n", node->length);
     int i;
     for (i = 0; i < node->count; i++) {
         printf("%s\n", node->words[i]);

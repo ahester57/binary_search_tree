@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "bstree.h"
+#include "binarytree.h"
 #include "treehelper.h"
 #include "readfile.h"
+#include "writefile.h"
 
 FILE* parse_arg(const char*);
 

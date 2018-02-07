@@ -1,26 +1,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "bstree.h"
+#include "binarytree.h"
+#include "treehelper.h"
 
 Node*
 insert(Node* root, char* word)
 {
     int len = strlen(word);
     if (root == NULL) {
-        root = (Node*) malloc(sizeof(Node));
-        root->words = (char**) malloc(64*sizeof(char*));
-        root->count = 1;
-        root->words[root->count-1] = (char*) malloc(64*sizeof(char));
-        strcpy(root->words[root->count-1], word);
-        root->length = len;
-        root->left = NULL;
-        root->right = NULL;
+        // initialize a new node
+        root = initializenode(root, len);
+        addwordtonode(root, word);
     } else if (len == root->length) {
-        // add this word to this node   
-        root->count++;
-        root->words[root->count-1] = (char*) malloc(64*sizeof(char));
-        strcpy(root->words[root->count-1], word);
+        // add this word to this node
+        if (!isinnode(root, word)) {
+            addwordtonode(root, word);
+        }
     } else if (len < root->length) {
         root->left = insert(root->left, word);
     } else {
@@ -36,16 +32,14 @@ search(Node* root, char* word)
     if (root == NULL || root->length == len) {
         return root;
     }
-
     if (root->length < len) {
         return search(root->right, word);
     }
-
     return search(root->left, word);
 }
 
 Node*
-delete(Node* root, int len)
+deletenode(Node* root, int len)
 {
     // @TODO
     return root;

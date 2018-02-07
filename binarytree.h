@@ -1,5 +1,5 @@
-#ifndef BSTREE_H_
-#define BSTREE_H_
+#ifndef BINARYTREE_H_
+#define BINARYTREE_H_
 
 typedef struct node Node;
 
@@ -13,7 +13,6 @@ struct node {
 
 Node* insert(Node* root, char* word);
 Node* search(Node* root, char* word);
-Node* delete(Node* root, int len);
-int isinwordlist(char** list, char* word);
+Node* deletenode(Node* root, int len);
 
 #endif
