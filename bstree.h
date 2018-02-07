@@ -15,9 +15,5 @@ Node* insert(Node* root, char* word);
 Node* search(Node* root, char* word);
 Node* delete(Node* root, int len);
 int isinwordlist(char** list, char* word);
-void inorder(Node* root);
-void preorder(Node* root);
-void postorder(Node* root);
-void printnode(Node* node);
 
 #endif

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "bstree.h"
+#include "treehelper.h"
 #include "readfile.h"
 
 FILE* parse_arg(const char*);
