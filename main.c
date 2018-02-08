@@ -1,9 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "binarytree.h"
+#include "tree.h"
 #include "treehelper.h"
-#include "readfile.h"
 #include "writefile.h"
 
 FILE* parse_arg(const char*);
@@ -21,21 +20,18 @@ main (int argc, char* argv[])
         return 1;
     }
 
-    char** wordlist = getfilestring(fp);
-    int n = getnumwords();
-
-    Node* root = NULL;
-    root = insert(root, wordlist[0]);
-    int i;
-    for (i = 1; i < n; i++)
-        insert(root, wordlist[i]);
-        //fprintf(stdout, "%s\n", wordlist[i]);
 
 
-    inorder(root);
+    node_t* root = NULL;
+    root = buildtree(fp);
+
+    if (root != NULL && root->count > 0) {
+        preorder(root);
+    }
 
     // out-file
-
+    free(root);
+    //free(wordlist);
     fclose(fp);
     return 0;
 }

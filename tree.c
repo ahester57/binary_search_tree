@@ -1,16 +1,35 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "binarytree.h"
+#include "tree.h"
 #include "treehelper.h"
+#include "readfile.h"
 
-Node*
-insert(Node* root, char* word)
+node_t*
+buildtree(FILE* fp)
 {
+    char** wordlist = getfilestring(fp);
+    int n = getnumwords();
+    node_t* root = NULL;
+    root = insert(root, wordlist[0], 0);
+    int i;
+    for (i = 1; i < n; i++)
+        insert(root, wordlist[i], 0);
+    return root;
+}
+
+node_t*
+insert(node_t* root, char* word, int level)
+{
+
+    if (word == (char*) NULL)
+        return (node_t*) NULL;
+
     int len = strlen(word);
+
     if (root == NULL) {
         // initialize a new node
-        root = initializenode(root, len);
+        root = initializenode(root, len, level);
         addwordtonode(root, word);
     } else if (len == root->length) {
         // add this word to this node
@@ -18,15 +37,15 @@ insert(Node* root, char* word)
             addwordtonode(root, word);
         }
     } else if (len < root->length) {
-        root->left = insert(root->left, word);
+        root->left = insert(root->left, word, ++level);
     } else {
-        root->right = insert(root->right, word);
+        root->right = insert(root->right, word, ++level);
     }
     return root;
 }
 
-Node*
-search(Node* root, char* word)
+node_t*
+search(node_t* root, char* word)
 {
     int len = strlen(word);
     if (root == NULL || root->length == len) {
@@ -38,8 +57,8 @@ search(Node* root, char* word)
     return search(root->left, word);
 }
 
-Node*
-deletenode(Node* root, int len)
+node_t*
+deletenode(node_t* root, int len)
 {
     // @TODO
     return root;

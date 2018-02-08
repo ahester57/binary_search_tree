@@ -3,8 +3,8 @@ CC=gcc
 CFLAGS=-Wall -g
 #LDLIBS= -pthread
 # or perhaps SOURCES= $(wildcard *.c)
-DEPS = binarytree.h treehelper.h readfile.h writefile.h
-OBJECTS = main.o binarytree.o treehelper.o readfile.o writefile.o
+DEPS = tree.h treehelper.h readfile.h writefile.h
+OBJECTS = main.o tree.o treehelper.o readfile.o writefile.o
 
 .PHONY: all clean
 
