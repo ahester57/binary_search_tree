@@ -3,3 +3,6 @@
 *.code-workspace*
 p0
 .vscode/*
+*.inorder
+*.preorder
+*.postorder

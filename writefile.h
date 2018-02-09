@@ -4,5 +4,6 @@
 #include "tree.h"
 
 int writetofile(FILE* fp, node_t* root);
+void writenode(FILE* fp, node_t* node);
 
 #endif

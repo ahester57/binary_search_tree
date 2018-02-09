@@ -19,3 +19,6 @@ p0: $(OBJECTS)
 
 clean:
 	$(RM) $(OBJECTS)
+
+destroy:
+	$(RM) $(OBJECTS) p0

@@ -3,9 +3,10 @@
 #include <string.h>
 #include "treehelper.h"
 #include "tree.h"
+#include "writefile.h"
 
 node_t*
-initializenode(node_t* root, int len, int level)
+initializenode (node_t* root, int len, int level)
 {
     root = (node_t*) malloc(sizeof(node_t));
     root->words = (char**) malloc(64*sizeof(char*));
@@ -17,7 +18,7 @@ initializenode(node_t* root, int len, int level)
 }
 
 void
-addwordtonode(node_t* root, char* word)
+addwordtonode (node_t* root, char* word)
 {
     root->count++;
     root->words[root->count-1] = (char*) malloc(64*sizeof(char));
@@ -27,7 +28,7 @@ addwordtonode(node_t* root, char* word)
 // 1 - yes
 // 0 - no
 int
-isinnode(node_t* node, char* word)
+isinnode (node_t* node, char* word)
 {
     int i;
     for (i = 0; i < node->count; i++) {
@@ -38,42 +39,44 @@ isinnode(node_t* node, char* word)
 }
 
 void
-inorder(node_t* root)
+traverseinorder (node_t* root)
 {
     if (root == NULL)
         return;
-    inorder(root->left);
-    printnode(root, 1);
-    inorder(root->right);
+    traverseinorder(root->left);
+    printnode(root);
+    traverseinorder(root->right);
 }
 
 void
-preorder(node_t* root)
+traversepreorder (node_t* root, FILE* fp)
 {
     if (root == NULL)
         return;
-    printnode(root, 1);
-    preorder(root->left);
-    preorder(root->right);
+    printnode(root);
+    writenode(fp, root);
+    traversepreorder(root->left, fp);
+    traversepreorder(root->right, fp);
 }
 
 void
-postorder(node_t* root)
+traversepostorder (node_t* root)
 {
     if (root == NULL)
         return;
-    postorder(root->left);
-    postorder(root->right);
-    printnode(root, 1);
+    traversepostorder(root->left);
+    traversepostorder(root->right);
+    printnode(root);
 }
 
 void
-printnode(node_t* node, int level)
+printnode (node_t* node)
 {
-    printf("%*c", node->depth*4, ' ');
+    if (node->depth > 0)
+        printf("%*c", node->depth*2, ' ');
     printf("%d ", node->length);
     int i;
-    for (i = 0; i < node->count; i++) {
+    for (i = node->count-1; i >= 0 ; i--) {
         printf("%s ", node->words[i]);
     }
     printf("\n");

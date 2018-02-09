@@ -6,7 +6,7 @@
 #include "readfile.h"
 
 node_t*
-buildtree(FILE* fp)
+buildtree (FILE* fp)
 {
     char** wordlist = getfilestring(fp);
     int n = getnumwords();
@@ -19,7 +19,7 @@ buildtree(FILE* fp)
 }
 
 node_t*
-insert(node_t* root, char* word, int level)
+insert (node_t* root, char* word, int level)
 {
 
     if (word == (char*) NULL)
@@ -45,7 +45,7 @@ insert(node_t* root, char* word, int level)
 }
 
 node_t*
-search(node_t* root, char* word)
+search (node_t* root, char* word)
 {
     int len = strlen(word);
     if (root == NULL || root->length == len) {
@@ -55,11 +55,4 @@ search(node_t* root, char* word)
         return search(root->right, word);
     }
     return search(root->left, word);
-}
-
-node_t*
-deletenode(node_t* root, int len)
-{
-    // @TODO
-    return root;
 }
