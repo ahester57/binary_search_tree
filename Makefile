@@ -21,4 +21,4 @@ clean:
 	$(RM) $(OBJECTS)
 
 destroy:
-	$(RM) $(OBJECTS) p0
+	$(RM) $(OBJECTS) p0 *.inorder *.preorder *.postorder

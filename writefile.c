@@ -2,11 +2,45 @@
 #include <stdio.h>
 #include "writefile.h"
 #include "tree.h"
+#include "treehelper.h"
 
-int
-writetofile (FILE* fp, node_t* root)
+void
+writeinorder (node_t* root, const char* fname)
 {
-    return 0;
+    if (root != NULL && root->count > 0) {
+        FILE* fp;
+        char temp[64];
+        sprintf(temp, "%s.inorder", fname);
+        fp = fopen(temp, "w");
+        traverseinorder(root, fp);
+        fclose(fp);
+    }
+}
+
+void
+writepreorder (node_t* root, const char* fname)
+{
+    if (root != NULL && root->count > 0) {
+        FILE* fp;
+        char temp[64];
+        sprintf(temp, "%s.preorder", fname);
+        fp = fopen(temp, "w");
+        traversepreorder(root, fp);
+        fclose(fp);
+    }
+}
+
+void
+writepostorder (node_t* root, const char* fname)
+{
+    if (root != NULL && root->count > 0) {
+        FILE* fp;
+        char temp[64];
+        sprintf(temp, "%s.postorder", fname);
+        fp = fopen(temp, "w");
+        traversepostorder(root, fp);
+        fclose(fp);
+    }
 }
 
 void

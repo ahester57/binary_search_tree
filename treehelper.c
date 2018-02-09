@@ -39,13 +39,14 @@ isinnode (node_t* node, char* word)
 }
 
 void
-traverseinorder (node_t* root)
+traverseinorder (node_t* root, FILE* fp)
 {
     if (root == NULL)
         return;
-    traverseinorder(root->left);
+    traverseinorder(root->left, fp);
     printnode(root);
-    traverseinorder(root->right);
+    writenode(fp, root);
+    traverseinorder(root->right, fp);
 }
 
 void
@@ -60,13 +61,14 @@ traversepreorder (node_t* root, FILE* fp)
 }
 
 void
-traversepostorder (node_t* root)
+traversepostorder (node_t* root, FILE* fp)
 {
     if (root == NULL)
         return;
-    traversepostorder(root->left);
-    traversepostorder(root->right);
+    traversepostorder(root->left, fp);
+    traversepostorder(root->right, fp);
     printnode(root);
+    writenode(fp, root);
 }
 
 void

@@ -3,18 +3,20 @@
 #include <string.h>
 #include "tree.h"
 #include "treehelper.h"
+#include "readfile.h"
 #include "writefile.h"
 
-FILE* openinputfile(const char* fname);
 char* getbasefilename(const char* arg);
 
 int
 main (int argc, char* argv[])
 {
-    char* fname;
+    int keyboardin = 1;
+    char* fname = "out";
     FILE* fp = stdin;
     // Parse arguments
     if (argc > 1) {
+        keyboardin = 0;
         fname = getbasefilename(argv[1]);
         if (fname == NULL) {
             perror("Input error");
@@ -27,35 +29,27 @@ main (int argc, char* argv[])
         return 1;
     }
 
+    // Build the tree 
+    // buildtree takes one argument:
+    // a file containing text
     node_t* root = NULL;
     root = buildtree(fp);
 
-    if (root != NULL && root->count > 0) {
-        FILE* tmp;
-        char temp[64];
-        sprintf(temp, "%s.preorder", fname);
-        tmp = fopen(temp, "w");
-        traversepreorder(root, tmp);
-    }
-
+    // write*order takes two arguments:
+    // the root of the tree, and the base filename
+    // 
     // out-file
-    free(fname);
-    free(root);
+    writeinorder (root, fname);
+    writepreorder (root, fname);
+    writepostorder (root, fname);
+
+    // free fname if it was generated.
+    if (!keyboardin) {
+        free(fname);
+    }
     fclose(fp);
+    free(root);
     return 0;
-}
-
-FILE*
-openinputfile (const char* fname)
-{
-    char temp[64];
-    
-
-    // append .sp18 to base file name
-    sprintf(temp, "%s%s", fname, ".sp18");
-    if (temp == NULL)
-        return (FILE*) -1;
-    return fopen(temp, "r");
 }
 
 char*
@@ -65,7 +59,7 @@ getbasefilename (const char* arg)
     char* fname = (char*) malloc((len+1)*sizeof(char));
 
     if (fname == NULL)
-        return (char*) -1;
+        return (char*) NULL;
     
     // Copy argument to fname
     strcpy(fname, arg);

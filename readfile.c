@@ -5,6 +5,18 @@
 
 int static numwords = 0;
 
+FILE*
+openinputfile (const char* fname)
+{
+    char temp[64];
+    
+    // append .sp18 to base file name
+    sprintf(temp, "%s%s", fname, ".sp18");
+    if (temp == NULL)
+        return (FILE*) -1;
+    return fopen(temp, "r");
+}
+
 // Get a list of strings in the file,
 // separated by whitespace
 char**
