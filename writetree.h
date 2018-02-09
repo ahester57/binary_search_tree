@@ -1,5 +1,5 @@
-#ifndef WRITEFILE_H_
-#define WRITEFILE_H_
+#ifndef WRITETREE_H_
+#define WRITETREE_H_
 #include <stdio.h>
 #include "tree.h"
 

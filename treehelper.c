@@ -3,7 +3,7 @@
 #include <string.h>
 #include "treehelper.h"
 #include "tree.h"
-#include "writefile.h"
+#include "writetree.h"
 
 node_t*
 initializenode (node_t* root, int len, int level)

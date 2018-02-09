@@ -3,8 +3,9 @@ CC=gcc
 CFLAGS=-Wall -g
 #LDLIBS= -pthread
 # or perhaps SOURCES= $(wildcard *.c)
-DEPS = tree.h treehelper.h readfile.h writefile.h
-OBJECTS = main.o tree.o treehelper.o readfile.o writefile.o
+DEPS = tree.h treehelper.h metafile.h readfile.h writetree.h
+# change to patsubt
+OBJECTS = main.o tree.o treehelper.o metafile.o readfile.o writetree.o
 
 .PHONY: all clean
 

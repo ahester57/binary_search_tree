@@ -1,12 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 #include "tree.h"
 #include "treehelper.h"
-#include "readfile.h"
-#include "writefile.h"
-
-char* getbasefilename(const char* arg);
+#include "metafile.h"
+#include "writetree.h"
 
 int
 main (int argc, char* argv[])
@@ -37,8 +34,6 @@ main (int argc, char* argv[])
 
     // write*order takes two arguments:
     // the root of the tree, and the base filename
-    // 
-    // out-file
     writeinorder (root, fname);
     writepreorder (root, fname);
     writepostorder (root, fname);
@@ -50,28 +45,4 @@ main (int argc, char* argv[])
     fclose(fp);
     free(root);
     return 0;
-}
-
-char*
-getbasefilename (const char* arg)
-{
-    int len = strlen(arg);
-    char* fname = (char*) malloc((len+1)*sizeof(char));
-
-    if (fname == NULL)
-        return (char*) NULL;
-    
-    // Copy argument to fname
-    strcpy(fname, arg);
-
-    if (len > 4) {
-        // Check if extension '.sp18' already provided
-        // advocate for TAB completion 
-        const char* ext = &fname[len-5];
-        if (!strcmp(ext, ".sp18")) {
-            // If .sp18 appended, take off.
-            fname[len-5] = '\0';
-        }
-    }
-    return fname;
 }
