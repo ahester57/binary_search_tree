@@ -11,11 +11,11 @@ OBJECTS = main.o tree.o treehelper.o metafile.o readfile.o writetree.o
 
 default: all
 
-all: p0 
+all: P0 
 
 %.o: %.c $(DEPS)
 
-p0: $(OBJECTS)
+P0: $(OBJECTS)
 	gcc -o $@ $^ $(CFLAGS)
 
 clean:
