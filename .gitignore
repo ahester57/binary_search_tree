@@ -2,6 +2,7 @@
 *.out
 *.code-workspace*
 p0
+P0
 .vscode/*
 *.inorder
 *.preorder
